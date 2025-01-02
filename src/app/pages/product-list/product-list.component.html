@@ -1,0 +1,7 @@
+<div class="p-8 grid grid-cols-4 gap-4">
+  @for(product of products(); track product.id) {
+
+  <app-product-card [product]="product"> </app-product-card>
+  <!-- <P>{{ product.title }}</P> -->
+  }
+</div>

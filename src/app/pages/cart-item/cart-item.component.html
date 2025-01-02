@@ -1,0 +1,54 @@
+<div class="w-full">
+  <table class="w-full">
+    <tbody class="font-bal text-base text-[#555]">
+      <tr class="border-b">
+        <td class="py-4 w-1/5 text-[#818181]">
+          <app-button
+            label="X"
+            (btnClicked)="cartService.removeFromCart(item().id)"
+          ></app-button>
+        </td>
+        <td class="py-4 w-1/5">{{ item().title }}</td>
+        <td class="py-4 w-1/5">${{ item().price }}</td>
+        <td class="py-4 w-1/5">
+          <button (click)="cartService.decrementQuantity(item().id)">-</button>
+          <span>{{ item().quantity }}</span>
+          <button (click)="cartService.incrementQuantity(item().id)">+</button>
+        </td>
+        <td class="py-4 w-1/5">${{ item().price * (item().quantity || 0) }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 
+<div class="border w-96 mx-auto mt-10">
+  <div class="second-card rotate-180">
+    <div class="box">
+      <div class="img relative">
+        <div class="text-white absolute right-32 bottom-8 z-20 rotate-180">
+          Please provide your correct username and password to login
+        </div>
+      </div>
+
+      <div class="text-white relative right-16 bottom-64 z-20 rotate-180">
+        <div class="flex flex-col w-fit">
+          <label for="Username">Username</label>
+          <input type="text" />
+        </div>
+
+        <div class="flex flex-col mb-2 w-fit">
+          <label for="password">Password</label>
+          <input type="text" />
+        </div>
+
+        <button class="bg-red-600 p-2 rounded-lg">Login</button>
+      </div>
+
+    </div>
+
+    <div class="cta">
+      <h1 class="rotate-180">Login</h1>
+    </div>
+  </div>
+</div> -->

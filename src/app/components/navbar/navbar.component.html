@@ -1,0 +1,39 @@
+<div
+  class="flex justify-between items-center py-4 font-sans font-semibold px-10"
+>
+  <div class="flex items-center gap-x-20">
+    <h1 class="font-serif text-4xl text-[#1d1d1d] cursor-pointer" routerLink="">
+      NorthStar
+    </h1>
+    <div
+      class="flex items-center text-[#024E82] text-xs font-bold font-ari gap-x-4"
+    >
+      <a routerLink="">HOME</a>
+      <a routerLink="/about-us" class="cursor-pointer">ABOUT</a>
+      <a routerLink="/contact-us" class="cursor-pointer">CONTACT US</a>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-x-4">
+    <img src="/assets/user 1.png" alt="" />
+    <span class="flex relative items-center">
+      <div class="absolute bottom-4 left-2">
+        <img class="" src="assets/Ellipse 1.png" alt="" />
+        <p
+          class="font-bold absolute text-[10px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center font-serif z-10"
+        >
+          {{ cartItemCount }}
+        </p>
+      </div>
+
+      <img
+        src="/assets/cart.png"
+        routerLink="/cart"
+        class="cursor-pointer"
+        alt=""
+      />
+    </span>
+
+    <img src="/assets/menu 1.png" alt="" />
+  </div>
+</div>

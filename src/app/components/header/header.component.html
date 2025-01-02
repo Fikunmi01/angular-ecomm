@@ -1,0 +1,12 @@
+<div class="bg-slate-100 px-4 py-3 flex justify-between items-center shadow-md">
+  <span class="text-xl" routerLink="">My Store</span>
+  <app-primary-button
+    [label]="'Cart(' + cartService.cart().length + ')'"
+    (btnClicked)="showButtonClicked()"
+  />
+  <!-- (' + cartService.cart().length + ') -->
+</div>
+
+<!-- <div>
+  <app-product-list></app-product-list>
+</div> -->

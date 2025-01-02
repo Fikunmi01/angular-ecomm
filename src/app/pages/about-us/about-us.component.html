@@ -1,0 +1,45 @@
+<div class="relative">
+  <app-navbar />
+
+  <div class="relative">
+    <img src="assets/contact-header.jpg" alt="" />
+    <h2 class="absolute px-10 bottom-10 text-5xl text-white font-serif">
+      ABOUT NORTHSTAR
+    </h2>
+  </div>
+
+  <h1 class="text-center font-bal my-6 text-3xl font-bold">The Founders</h1>
+
+  <div class="grid grid-cols-2 px-10 justify-center mx-auto my-10 gap-6">
+    <div class="relative">
+      <img src="assets/aboutImg1.png" alt="" />
+      <button
+        class="absolute bottom-10 bg-white rounded-2xl font-bal text-[#14517B] px-3 py-2 left-60"
+      >
+        BUY NOW
+      </button>
+    </div>
+    <div class="relative">
+      <img src="assets/aboutImg2.png" alt="" />
+      <button
+        class="absolute bottom-10 bg-white rounded-2xl font-bal text-[#14517B] px-3 py-2 left-60"
+      >
+        BUY NOW
+      </button>
+    </div>
+  </div>
+
+  <div class="px-16 py-6">
+    <h1 class="text-center font-bal mb-4 text-3xl font-bold">The TEAM</h1>
+
+    <div class="grid grid-cols-4 gap-4">
+      <div *ngFor="let author of aboutArray">
+        <img src="{{ author.img }}" alt="" />
+        <p class="font-ari text-base font-semibold">{{ author.name }}</p>
+        <P class="font-ari text-sm">{{ author.role }}</P>
+      </div>
+    </div>
+  </div>
+
+  <app-footer />
+</div>

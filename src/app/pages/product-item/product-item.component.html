@@ -1,0 +1,149 @@
+<div *ngIf="product">
+  <app-navbar />
+  <div class="p-10 flex gap-10">
+    <div>
+      <img [src]="product.thumbnail" alt="" />
+    </div>
+    <div>
+      <div>
+        <p class="font-serif text-sm mb-3">
+          <span class="text-[#555]"> HOME </span>/ SHOPPING
+        </p>
+      </div>
+      <h1 class="text-[#1d1d1d] font-bal text-3xl font-semibold">
+        {{ product.title }}
+      </h1>
+
+      <!-- <span> -->
+      <div class="my-4 flex">
+        <ng-container *ngFor="let star of [].constructor(5); let i = index">
+          <img
+            *ngIf="product.rating && i < getRoundedRating(product.rating)"
+            src="assets/icon (6).png"
+            alt=""
+          />
+          <img
+            *ngIf="product.rating && i >= getRoundedRating(product.rating)"
+            src="assets/icon (8).png"
+            alt=""
+          />
+        </ng-container>
+      </div>
+      <!-- <p>{{ product.rating }}</p> -->
+      <!-- </span> -->
+
+      <div class="flex text-2xl font-bal gap-4">
+        <p class="line-through text-[#818181]">
+          $<span>{{
+            calculateOriginalPrice(product.price, product.discountPercentage)
+          }}</span>
+        </p>
+
+        <p class="text-[#024E82]">${{ product.price }}</p>
+      </div>
+      <div class="font-serif text-base text-[#555]">
+        <p>Brand: {{ product.brand }}</p>
+      </div>
+      <div class="my-4">
+        <select
+          name=""
+          id=""
+          class="border p-2 bg-[#fbfbfb] border-[#ebebeb] text-[#1d1d1d] outline-none font-serif text-base"
+        >
+          <option value="Select Size">Select size</option>
+          <option value="S">Small (S)</option>
+          <option value="M">Medium (M)</option>
+          <option value="L">Large (L)</option>
+          <option value="XL">Extra Large (XL)</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <button class="font-serif bg-[#024E82] text-white px-3 py-2 text-sm">
+          ADD TO CART
+        </button>
+      </div>
+      <div class="font-serif text-sm">
+        <p class="text-[#555]">
+          <span class="text-[#1d1d1d]"> Category: </span> {{ product.category }}
+        </p>
+        <p class="text-[#555]">
+          <span class="text-[#1d1d1d]"> Tags: </span>
+          {{ product.tags }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="px-10">
+    <div class="flex">
+      <p
+        (click)="showDescription()"
+        *ngIf="descTab; else descInactive"
+        class="border border-[#ebebeb] px-3 py-2 font-bal text-base text-[#1d1d1d] font-bold cursor-pointer"
+      >
+        Description
+      </p>
+      <ng-template #descInactive>
+        <p
+          (click)="showDescription()"
+          class="border border-[#ebebeb] px-3 py-2 font-bal text-[#1d1d1d] cursor-pointer"
+        >
+          Description
+        </p>
+      </ng-template>
+      <p
+        (click)="showReviews()"
+        *ngIf="revTab; else revInactive"
+        class="border border-[#ebebeb] px-3 py-2 font-bal text-base text-[#1d1d1d] font-bold cursor-pointer"
+      >
+        Reviews ({{ product.reviews?.length }})
+      </p>
+      <ng-template #revInactive>
+        <p
+          (click)="showReviews()"
+          class="border border-[#ebebeb] px-3 py-2 font-bal text-[#1d1d1d] cursor-pointer"
+        >
+          Reviews ({{ product.reviews?.length }})
+        </p>
+      </ng-template>
+    </div>
+    <div
+      *ngIf="descTab"
+      class="border border-[#ebebeb] font-serif text-[#555] text-base p-4"
+    >
+      <p>{{ product.description }}</p>
+    </div>
+
+    <div
+      *ngIf="revTab"
+      class="border border-[#ebebeb] font-serif text-[#555] text-base p-4"
+    >
+      <div *ngFor="let review of product.reviews">
+        <p>{{ review.comment }}</p>
+        <p>{{ review.date }}</p>
+        <p>{{ review.reviewerName }}</p>
+        <p>{{ review.rating }}</p>
+        <div class="my-4 flex">
+          <ng-container *ngFor="let star of [].constructor(5); let i = index">
+            <img
+              *ngIf="review.rating && i < getRoundedRating(review.rating)"
+              src="assets/icon (6).png"
+              alt=""
+            />
+            <img
+              *ngIf="review.rating && i >= getRoundedRating(review.rating)"
+              src="assets/icon (8).png"
+              alt=""
+            />
+          </ng-container>
+        </div>
+        <p>{{ review.reviewerEmail }}</p>
+      </div>
+    </div>
+  </div>
+  <app-footer />
+</div>
+<ng-template #noProduct>
+  <p>
+    No product found. Please go back to the <a routerLink="/">home page</a>.
+  </p>
+</ng-template>

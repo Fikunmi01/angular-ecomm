@@ -1,0 +1,57 @@
+<div>
+  <app-navbar />
+</div>
+
+<div class="px-10">
+  <p class="font-serif text-base py-4">
+    <span class="text-[#555]"> HOME </span>/ SHOPPING CART
+  </p>
+</div>
+
+<div class="p-6 flex flex-col gap-4">
+  <table class="w-full">
+    <thead>
+      <tr class="text-left font-arim text-xl font-bold border-b">
+        <th class="w-1/5"></th>
+        <th class="w-1/5">Product</th>
+        <th class="w-1/5">Price</th>
+        <th class="w-1/5">Quantity</th>
+        <th class="w-1/5">Total</th>
+      </tr>
+    </thead>
+    <tbody class="font-bal text-base text-[#555]">
+      @for (item of cartService.cart(); track item.id) {
+      <tr class="border-b">
+        <td class="py-4 flex gap-10 w-1/5 text-[#818181]">
+          <app-button
+            label="X"
+            (btnClicked)="cartService.removeFromCart(item.id)"
+          ></app-button>
+          <img
+            [src]="item.image"
+            alt="{{ item.title }}"
+            class="w-16 h-16 object-cover"
+          />
+        </td>
+
+        <!-- <img src=[item.] alt="" srcset=""> -->
+        <td class="py-4 w-1/5">{{ item.title }}</td>
+        <td class="py-4 w-1/5">${{ item.price }}</td>
+        <td class="py-4 left-4 w-1/5 relative">
+          <span class="flex gap-x-2 ">
+            <button (click)="decrementQuantity(item.id)">-</button>
+            <span class="px-2 bg-[#ebebeb]">{{ item.quantity }}</span>
+            <button (click)="incrementQuantity(item.id)">+</button>
+          </span>
+        </td>
+        <td class="py-4 w-1/5">${{ item.price * (item.quantity || 0) }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <app-order-summary></app-order-summary>
+</div>
+
+<div>
+  <app-footer />
+</div>
