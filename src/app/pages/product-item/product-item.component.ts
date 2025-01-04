@@ -23,6 +23,8 @@ export class ProductItemComponent implements OnInit {
   product!: Product; // Change from Product[] to Product
   descTab: boolean = true;
   revTab: boolean = false;
+  currentImageIndex: number = 0;
+  isLoading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -68,12 +70,45 @@ export class ProductItemComponent implements OnInit {
       } else {
         console.log('No match found for search:', searchParam);
       }
-      // this.totalCount = this.states.length;
-      // const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      // const endIndex = startIndex + this.itemsPerPage;
-      // this.records = data.slice(startIndex, endIndex);
-    } else {
-      // this.getState();
+    }
+  }
+
+  prevImage() {
+    if (this.currentImageIndex > 0) {
+      this.isLoading = true;
+      this.currentImageIndex--;
+      this.updateDisplayedImage();
+    }
+  }
+
+  nextImage() {
+    if (
+      this.product &&
+      this.product.images &&
+      this.currentImageIndex < this.product.images.length - 1
+    ) {
+      this.isLoading = true;
+      this.currentImageIndex++;
+      this.updateDisplayedImage();
+    }
+  }
+
+  updateDisplayedImage() {
+    const imageElement = document.querySelector(
+      '.product-image'
+    ) as HTMLImageElement;
+    const loadingElement = document.querySelector(
+      '.loading-video'
+    ) as HTMLVideoElement;
+    if (imageElement && loadingElement && this.product && this.product.images) {
+      loadingElement.style.display = 'block';
+      imageElement.style.display = 'none';
+      imageElement.src = this.product.images[this.currentImageIndex];
+      imageElement.onload = () => {
+        this.isLoading = false;
+        loadingElement.style.display = 'none';
+        imageElement.style.display = 'block';
+      };
     }
   }
 

@@ -1,9 +1,95 @@
 <div *ngIf="product">
   <app-navbar />
-  <div class="p-10 flex gap-10">
+  <div class="p-10 relative flex gap-10">
     <div>
-      <img [src]="product.thumbnail" alt="" />
+      <div class="flex items-center relative">
+        <img src="assets/Ellipse 2.png" class="w-[55px]" alt="" />
+        <p
+          class="absolute text-xs font-bold justify-center left-2 text-white flex items-center"
+        >
+          -{{ product.discountPercentage }}%
+        </p>
+      </div>
+      <!-- <img [src]="product.thumbnail" alt="" /> -->
+      <!-- class="w-[2048px] h-[2048px]" -->
+
+      <div class=" " *ngIf="product.images && product.images.length">
+        <div class="w-72 h-72 flex justify-center items-center">
+          <video
+            src="assets/video/Loading.mp4"
+            class="w-48 h-fit loading-video"
+            autoplay
+            loop
+            muted
+            style="display: none"
+          ></video>
+          <img
+            [src]="product.images[currentImageIndex]"
+            class="product-image"
+            alt=""
+          />
+        </div>
+
+        <div class="flex top-1/2 w-72 absolute justify-between">
+          <!-- [style.cursor]="isLoading ? 'progress' : 'pointer'" -->
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            id="prev"
+            (click)="prevImage()"
+            [style.fill]="currentImageIndex > 0 ? '#024E82' : '#555'"
+            class="w-6 cursor-pointer"
+          >
+            <g>
+              <path
+                d="M12 0a12 12 0 1 0 12 12A12.013 12.013 0 0 0 12 0Zm0 22a10 10 0 1 1 10-10 10.011 10.011 0 0 1-10 10Z"
+              ></path>
+              <path
+                d="M13.359 6.232a1 1 0 1 1 1.282 1.536L9.563 12l5.078 4.232a1 1 0 0 1-1.282 1.536l-6-5a1 1 0 0 1 0-1.536Z"
+              ></path>
+            </g>
+          </svg>
+          <!-- [style.cursor]="isLoading ? 'progress' : 'pointer'" -->
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            id="next"
+            (click)="nextImage()"
+            [style.fill]="
+              product &&
+              product.images &&
+              currentImageIndex < product.images.length - 1
+                ? '#024E82'
+                : '#555'
+            "
+            class="w-6 cursor-pointer"
+          >
+            <g>
+              <path
+                d="M12 0a12 12 0 1 0 12 12A12.013 12.013 0 0 0 12 0Zm0 22a10 10 0 1 1 10-10 10.011 10.011 0 0 1-10 10Z"
+              ></path>
+              <path
+                d="M10.641 6.232a1 1 0 1 0-1.282 1.536L14.437 12l-5.078 4.232a1 1 0 0 0 1.282 1.536l6-5a1 1 0 0 0 0-1.536Z"
+              ></path>
+            </g>
+          </svg>
+        </div>
+
+        <div class="flex justify-center">
+          <span
+            *ngFor="let image of product.images; let i = index"
+            (click)="currentImageIndex = i"
+            [style.color]="i === currentImageIndex ? '#024E82' : '#555'"
+            class="cursor-pointer text-6xl"
+          >
+            &bull;
+          </span>
+        </div>
+      </div>
     </div>
+
     <div>
       <div>
         <p class="font-serif text-sm mb-3">
@@ -14,7 +100,6 @@
         {{ product.title }}
       </h1>
 
-      <!-- <span> -->
       <div class="my-4 flex">
         <ng-container *ngFor="let star of [].constructor(5); let i = index">
           <img
@@ -29,8 +114,6 @@
           />
         </ng-container>
       </div>
-      <!-- <p>{{ product.rating }}</p> -->
-      <!-- </span> -->
 
       <div class="flex text-2xl font-bal gap-4">
         <p class="line-through text-[#818181]">
@@ -44,11 +127,19 @@
       <div class="font-serif text-base text-[#555]">
         <p>Brand: {{ product.brand }}</p>
       </div>
+
+      <div class="font-serif text-base text-[#555]">
+        <p>{{ product.shippingInformation }}</p>
+      </div>
+
+      <div class="font-serif text-base text-[#555]">
+        <p>{{ product.returnPolicy }}</p>
+      </div>
       <div class="my-4">
         <select
           name=""
           id=""
-          class="border p-2 bg-[#fbfbfb] border-[#ebebeb] text-[#1d1d1d] outline-none font-serif text-base"
+          class="border p-2 cursor-pointer bg-[#fbfbfb] border-[#ebebeb] text-[#1d1d1d] outline-none font-serif text-base"
         >
           <option value="Select Size">Select size</option>
           <option value="S">Small (S)</option>
@@ -69,6 +160,11 @@
         <p class="text-[#555]">
           <span class="text-[#1d1d1d]"> Tags: </span>
           {{ product.tags }}
+        </p>
+
+        <p class="text-[#555]">
+          <!-- <span class="text-[#1d1d1d]"> </span> -->
+          {{ product.returnPolicy }}
         </p>
       </div>
     </div>
@@ -118,25 +214,36 @@
       class="border border-[#ebebeb] font-serif text-[#555] text-base p-4"
     >
       <div *ngFor="let review of product.reviews">
-        <p>{{ review.comment }}</p>
-        <p>{{ review.date }}</p>
-        <p>{{ review.reviewerName }}</p>
-        <p>{{ review.rating }}</p>
-        <div class="my-4 flex">
-          <ng-container *ngFor="let star of [].constructor(5); let i = index">
-            <img
-              *ngIf="review.rating && i < getRoundedRating(review.rating)"
-              src="assets/icon (6).png"
-              alt=""
-            />
-            <img
-              *ngIf="review.rating && i >= getRoundedRating(review.rating)"
-              src="assets/icon (8).png"
-              alt=""
-            />
-          </ng-container>
+        <div class="border my-4 px-3 rounded-md">
+          <div class="flex items-center justify-between font-serif text-[#555]">
+            <p>{{ review.reviewerName }}</p>
+
+            <div class="my-4 flex items-center justify-between">
+              <ng-container
+                *ngFor="let star of [].constructor(5); let i = index"
+              >
+                <img
+                  *ngIf="review.rating && i < getRoundedRating(review.rating)"
+                  src="assets/icon (6).png"
+                  alt=""
+                />
+                <img
+                  *ngIf="review.rating && i >= getRoundedRating(review.rating)"
+                  src="assets/icon (8).png"
+                  alt=""
+                />
+              </ng-container>
+            </div>
+          </div>
+          <p>{{ review.comment }}</p>
+          <span class="flex justify-between text-sm">
+            <p></p>
+            <p>{{ review.date.slice(0, 10) }}</p>
+          </span>
+          <!-- <p>{{ review.rating }}</p> -->
+
+          <!-- <p>{{ review.reviewerEmail }}</p> -->
         </div>
-        <p>{{ review.reviewerEmail }}</p>
       </div>
     </div>
   </div>

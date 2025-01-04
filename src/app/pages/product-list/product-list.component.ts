@@ -13,20 +13,14 @@ import { ServicesService } from '../../services/services/services.service';
 })
 export class ProductListComponent implements OnInit {
   products = signal<Product[]>([]);
-  // allData = [] as Array<any>;
+  loading = signal<boolean>(false); // Add loading property
 
   constructor(private service: ServicesService) {}
 
-  // ngOnInit(): void {
-  //   this.service.getMenShirt().subscribe((res: any) => {
-  //     this.allData = res.data;
-  //     console.log(res.data, 'shirt loadsss')
-  //   });
-  // }
-
   async ngOnInit() {
-    // Fetch Men Shirt Data
+    this.loading.set(true); // Set loading to true before API call
 
+    // Fetch Men Shirt Data
     const response = await fetch(
       'https://dummyjson.com/products/category/mens-shirts'
     );
@@ -96,5 +90,7 @@ export class ProductListComponent implements OnInit {
 
     // Combine shirt and shoe data
     this.products.update((currentProducts) => [...currentProducts, ...shoes]);
+
+    this.loading.set(false); // Set loading to false after data is loaded
   }
 }

@@ -6,11 +6,17 @@ import { Product } from '../../models/product.model';
 import { ProductListComponent } from '../../pages/product-list/product-list.component';
 import { ServicesService } from '../../services/services/services.service';
 import { Category } from '../../models/category.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent, ProductListComponent],
+  imports: [
+    CommonModule,
+    ProductCardComponent,
+    ProductListComponent,
+    RouterLink,
+  ],
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss'],
 })
@@ -20,6 +26,8 @@ export class HeroComponent {
   cartService = inject(CartService);
 
   categories = signal<Category[]>([]);
+  loading = signal<boolean>(false); 
+
   sellerArray = [
     {
       img: 'assets/Rectangle 1.png',
@@ -116,6 +124,8 @@ export class HeroComponent {
   constructor(private service: ServicesService) {}
 
   async ngOnInit() {
+    this.loading.set(true); // Set loading to true before API call
+
     // Fetch categories data
     const response = await fetch('https://dummyjson.com/products/categories');
     const data = await response.json();
@@ -164,5 +174,7 @@ export class HeroComponent {
 
     // Combine shirt and shoe data
     this.products = [...this.products, ...shoes];
+
+    this.loading.set(false); // Set loading to false after data is loaded
   }
 }

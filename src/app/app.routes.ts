@@ -6,6 +6,8 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { ProductItemComponent } from './pages/product-item/product-item.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { CategoryItemComponent } from './pages/category-item/category-item.component';
 
 export const routes: Routes = [
   // {
@@ -40,14 +42,25 @@ export const routes: Routes = [
     component: ContactUsComponent,
     pathMatch: 'full',
   },
+  // {
+  //   path: 'item/one',
+  //   component: ProductItemComponent,
+  //   pathMatch: 'full',
+  // },
   {
-    path: 'item/one',
+    path: 'item/:id',
     component: ProductItemComponent,
     pathMatch: 'full',
   },
   {
-    path: 'item/:id',
-    component: ProductItemComponent,
+    path: 'category',
+    component: CategoryComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'category/:name',
+    component: CategoryItemComponent,
     pathMatch: 'full',
   },
 ];

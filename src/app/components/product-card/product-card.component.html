@@ -41,7 +41,6 @@
   
 </div> -->
 
-<!-- ...existing code... -->
 <div class="grid text-center">
   <div
     (click)="viewProduct()"
@@ -55,11 +54,12 @@
       {{ "$" + product.price }}
     </p>
 
-    <p>{{ product.description }}</p>
     <div
       class="bg-[#024E82] absolute right-0 text-sm top-0 rounded-xl font-bal text-white px-3 py-1"
     >
-      {{ product.stock }} left
+      <!-- {{ product.stock }} left -->
+      @if (product.stock) {
+      {{ product.stock }} left } @else { Out of Stock }
     </div>
     <app-primary-button
       (click)="$event.stopPropagation(); addToCart()"
@@ -68,4 +68,3 @@
     ></app-primary-button>
   </div>
 </div>
-<!-- ...existing code... -->

@@ -13,16 +13,15 @@ import { ServicesService } from '../../services/services/services.service';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
 })
-export class HomepageComponent implements OnInit {
+export class HomepageComponent {
   item = input.required<Product>();
   products = signal<Product[]>([]);
+  loading: boolean = true;
 
-  constructor(private service: ServicesService) {}
+  constructor(private service: ServicesService) {
+  this.loading = false;
 
-  async ngOnInit() {
-    const response = await fetch('https://fakestoreapi.com/products');
-    const data = await response.json();
-    this.products.set(data);
   }
+
   cartService = inject(CartService);
 }
