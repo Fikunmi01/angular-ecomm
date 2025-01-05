@@ -115,7 +115,7 @@ export class CategoryComponent {
     this.categories.set(categories);
   }
 
-  viewCategory() {
-    this.router.navigate(['/category', this.category[0].url.toString()], { state: { categories: this.category } });
+  viewCategory(category: Category) {
+    this.router.navigate(['/category', category.slug], { state: { category } });
   }
 }

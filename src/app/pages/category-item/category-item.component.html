@@ -1,1 +1,39 @@
-<p>category-item works!</p>
+<div>
+  <div>
+    <app-navbar />
+  </div>
+
+  <div class="px-20">
+    <div class="grid grid-cols-4 gap-4">
+      <div
+        class="text-center"
+        *ngFor="let cat of specificCategory; let i = index"
+      >
+        <div class="border rounded-xl relative cursor-pointer">
+          <img [src]="cat.thumbnail" class="object-contain" alt="" />
+          <p class="font-bal text-base text-[#1d1d1d] font-medium">
+            {{ cat.title }}
+          </p>
+          <p class="font-serif text-base text-[#024E82] mb-2">
+            {{ "$" + cat.price }}
+          </p>
+
+          <div
+            class="bg-[#024E82] absolute right-0 text-sm top-0 rounded-xl font-bal text-white px-3 py-1"
+          >
+            {{ cat.stock ? cat.stock + " left" : "Out of Stock" }}
+          </div>
+
+          <app-primary-button
+            label="Add to Cart"
+            class="mb-3 font-bal text-base"
+          ></app-primary-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <app-footer />
+  </div>
+</div>
