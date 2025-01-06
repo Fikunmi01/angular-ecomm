@@ -22,7 +22,6 @@ export class CategoryComponent {
 
   constructor(public cart: CartService, private router: Router) {}
 
-  
   categoryArray = [
     {
       img: 'assets/beautyImg.jpg',

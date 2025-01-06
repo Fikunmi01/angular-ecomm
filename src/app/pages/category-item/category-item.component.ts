@@ -6,6 +6,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { PrimaryButtonComponent } from '../../components/primary-button/primary-button.component';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-category-item',
@@ -22,6 +23,7 @@ import { PrimaryButtonComponent } from '../../components/primary-button/primary-
 export class CategoryItemComponent {
   @Input() category: Category[] = [];
   cartService = inject(CartService);
+  @Input() product!: Product;
 
   categories = signal<Category[]>([]);
   loading = signal<boolean>(false);
@@ -54,12 +56,18 @@ export class CategoryItemComponent {
     }
   }
 
-  // viewProduct() {
-  //   const categoryId = this.category[0]?.id;
-  //   if (categoryId) {
-  //     this.router.navigate(['/item', categoryId.toString()], { state: { product: this.category } });
-  //   } else {
-  //     console.error('Category ID not found');
-  //   }
-  // }
+  addToCart() {
+    this.cartService.addToCart(this.product);
+  }
+
+  viewProduct(product: any) {
+    const productId = product.id;
+    if (productId) {
+      this.router.navigate(['/item', productId.toString()], {
+        state: { product },
+      });
+    } else {
+      console.error('Product ID not found');
+    }
+  }
 }

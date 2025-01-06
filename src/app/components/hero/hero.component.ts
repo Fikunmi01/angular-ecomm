@@ -6,7 +6,7 @@ import { Product } from '../../models/product.model';
 import { ProductListComponent } from '../../pages/product-list/product-list.component';
 import { ServicesService } from '../../services/services/services.service';
 import { Category } from '../../models/category.model';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
@@ -26,7 +26,8 @@ export class HeroComponent {
   cartService = inject(CartService);
 
   categories = signal<Category[]>([]);
-  loading = signal<boolean>(false); 
+  loading = signal<boolean>(false);
+  @Input() product!: Product;
 
   sellerArray = [
     {
@@ -121,7 +122,11 @@ export class HeroComponent {
     },
   ];
 
-  constructor(private service: ServicesService) {}
+  constructor(private service: ServicesService, private router: Router) {}
+
+  viewCategory(category: Category) {
+    this.router.navigate(['/category', category.slug], { state: { category } });
+  }
 
   async ngOnInit() {
     this.loading.set(true); // Set loading to true before API call

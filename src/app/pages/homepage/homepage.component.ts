@@ -5,11 +5,12 @@ import { Product } from '../../models/product.model';
 import { CartService } from '../../services/cart.service';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ServicesService } from '../../services/services/services.service';
+import { BlogComponent } from '../../components/blog/blog.component';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [NavbarComponent, HeroComponent, FooterComponent],
+  imports: [NavbarComponent, HeroComponent, FooterComponent, BlogComponent],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
 })
@@ -19,8 +20,7 @@ export class HomepageComponent {
   loading: boolean = true;
 
   constructor(private service: ServicesService) {
-  this.loading = false;
-
+    this.loading = false;
   }
 
   cartService = inject(CartService);

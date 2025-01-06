@@ -9,7 +9,10 @@
         class="text-center"
         *ngFor="let cat of specificCategory; let i = index"
       >
-        <div class="border rounded-xl relative cursor-pointer">
+        <div
+          class="border rounded-xl relative cursor-pointer"
+          (click)="viewProduct(cat)"
+        >
           <img [src]="cat.thumbnail" class="object-contain" alt="" />
           <p class="font-bal text-base text-[#1d1d1d] font-medium">
             {{ cat.title }}
@@ -25,6 +28,7 @@
           </div>
 
           <app-primary-button
+            (click)="$event.stopPropagation(); addToCart()"
             label="Add to Cart"
             class="mb-3 font-bal text-base"
           ></app-primary-button>
