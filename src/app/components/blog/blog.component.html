@@ -1,4 +1,32 @@
-<div class="px-14 py-10">
-    <p>blog works!</p>
-    
+<div class="px-14 py-10 grid gap-x-6 grid-cols-3">
+  <div
+    *ngFor="let blogDetails of blogArray"
+    class="flex flex-col h-fit relative border"
+  >
+    <div>
+      <img src="assets/sportCateg.jpg" alt="" />
+    </div>
+    <div class="p-4 font-bal">
+      <div class="flex items-center gap-x-2 mb-4">
+        <div class="bg-red-300 rounded-full w-fit p-2">
+          <img src="assets/user 1.png" alt="" />
+        </div>
+        <p>{{ blogDetails.author }}</p>
+      </div>
+
+      <div class="">
+        <h1 class="text-base mb-2 font-bold">
+          {{ blogDetails.title }}
+        </h1>
+        <p class="mb-2">
+          {{ blogDetails.description }}
+        </p>
+      </div>
+
+      <div class="flex py-2 justify-between border-t">
+        <p class="">5views</p>
+        <p>Like</p>
+      </div>
+    </div>
+  </div>
 </div>
