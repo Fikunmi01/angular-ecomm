@@ -1,7 +1,14 @@
-<div class="p-8 grid grid-cols-4 gap-4">
-  @for(product of products(); track product.id) {
-
-  <app-product-card [product]="product"> </app-product-card>
-  <!-- <P>{{ product.title }}</P> -->
-  }
+<div class="p-8 grid grid-cols-4 gap-4 relative">
+  <div class="flex  relative left-96 w-full top-4" *ngIf="loading">
+    <video
+      src="assets/video/Loading.mp4"
+      class="w-48 h-48"
+      autoplay
+      loop
+      muted
+    ></video>
+  </div>
+  <div *ngFor="let product of products()">
+    <app-product-card [product]="product"> </app-product-card>
+  </div>
 </div>

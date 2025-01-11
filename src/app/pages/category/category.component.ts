@@ -1,10 +1,11 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { Category } from '../../models/category.model';
 import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ServicesService } from '../../services/services/services.service';
 
 @Component({
   selector: 'app-category',
@@ -13,14 +14,27 @@ import { Router } from '@angular/router';
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',
 })
-export class CategoryComponent {
+export class CategoryComponent implements OnInit {
   @Input() category: Category[] = [];
   cartService = inject(CartService);
 
-  categories = signal<Category[]>([]);
-  loading = signal<boolean>(false);
+  categories = [] as Array<any>;
+  loading: boolean = true;
 
-  constructor(public cart: CartService, private router: Router) {}
+  constructor(
+    public cart: CartService,
+    private router: Router,
+    private setupService: ServicesService
+  ) {}
+  ngOnInit(): void {
+    this.loading = true;
+    this.setupService.getCategory().subscribe((res: any) => {
+      this.categories = res;
+      // console.log(res, 'category section gangan');
+    });
+
+    this.loading = false;
+  }
 
   categoryArray = [
     {
@@ -97,22 +111,22 @@ export class CategoryComponent {
     },
   ];
 
-  async ngOnInit() {
-    this.loading.set(true); // Set loading to true before API call
+  // async ngOnInit() {
+  //   this.loading.set(true); // Set loading to true before API call
 
-    // Fetch categories data
-    const response = await fetch('https://dummyjson.com/products/categories');
-    const data = await response.json();
-    console.log('data', data);
+  //   // Fetch categories data
+  //   const response = await fetch('https://dummyjson.com/products/categories');
+  //   const data = await response.json();
+  //   console.log('data', data);
 
-    const categories = data.map((category: any) => ({
-      slug: category.slug,
-      name: category.name,
-      url: category.url,
-    }));
+  //   const categories = data.map((category: any) => ({
+  //     slug: category.slug,
+  //     name: category.name,
+  //     url: category.url,
+  //   }));
 
-    this.categories.set(categories);
-  }
+  //   this.categories.set(categories);
+  // }
 
   viewCategory(category: Category) {
     this.router.navigate(['/category', category.slug], { state: { category } });

@@ -5,7 +5,7 @@
 
   <div class="px-20">
     <div class="grid grid-cols-4 gap-x-4 gap-y-10 mb-10 relative ">
-      <div *ngFor="let cat of categories(); let i = index" class="h-64">
+      <div *ngFor="let cat of categories; let i = index" class="h-64">
         <div class="">
           <p class="font-bal text-base text-[#1d1d1d] mt-1 font-medium">
             {{ cat.name }}

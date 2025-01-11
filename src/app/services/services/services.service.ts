@@ -8,14 +8,18 @@ import { Observable } from 'rxjs';
 })
 export class ServicesService {
   productUrl = environment.productUrl;
+  categoryUrl = environment.categoryUrl;
+  constructor(private httpClient: HttpClient) {}
 
-  // constructor(private httpClient: HttpClient) {}
+  getMenShirt(): Observable<any> {
+    return this.httpClient.get(`${this.productUrl}mens-shirts`);
+  }
 
-  // getMenShirt(): Observable<any> {
-  //   return this.httpClient.get(`${this.productUrl}mens-shirts`);
-  // }
+  getMenShoe() {
+    return this.httpClient.get(`${this.productUrl}mens-shoes`);
+  }
 
-  // getMenShoe() {
-  //   return this.httpClient.get(`${this.productUrl}mens-shoes`);
-  // }
+  getCategory() {
+    return this.httpClient.get(`${this.categoryUrl}`);
+  }
 }

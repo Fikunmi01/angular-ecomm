@@ -7,6 +7,7 @@ import { ProductListComponent } from '../../pages/product-list/product-list.comp
 import { ServicesService } from '../../services/services/services.service';
 import { Category } from '../../models/category.model';
 import { Router, RouterLink } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-hero',
@@ -25,8 +26,9 @@ export class HeroComponent {
   @Input() category: Category[] = [];
   cartService = inject(CartService);
 
-  categories = signal<Category[]>([]);
-  loading = signal<boolean>(false);
+  categories = [] as Array<any>;
+  loading: boolean = false;
+  // loading = signal<boolean>(false);
   @Input() product!: Product;
 
   sellerArray = [
@@ -122,64 +124,77 @@ export class HeroComponent {
     },
   ];
 
-  constructor(private service: ServicesService, private router: Router) {}
+  constructor(private router: Router, private setupService: ServicesService) {}
 
   viewCategory(category: Category) {
     this.router.navigate(['/category', category.slug], { state: { category } });
   }
 
-  async ngOnInit() {
-    this.loading.set(true); // Set loading to true before API call
+  shoes = [] as Array<any>;
+  shirt = [] as Array<any>;
+  ngOnInit(): void {
+    this.loading = true; // Set loading to true before API call
 
-    // Fetch categories data
-    const response = await fetch('https://dummyjson.com/products/categories');
-    const data = await response.json();
-    console.log('data', data);
+    this.setupService.getCategory().subscribe((res: any) => {
+      console.log(res, 'categories work');
+      this.categories = res;
+    });
 
-    const categories = data.map((category: any) => ({
-      slug: category.slug,
-      name: category.name,
-      url: category.url,
-    }));
-
-    this.categories.set(categories);
-
-    // Fetch men shoe data
-    const shoeRes = await fetch(
-      'https://dummyjson.com/products/category/mens-shoes'
-    );
-
-    const shoeData = await shoeRes.json();
-    const shoes = shoeData.products.map((product: any) => ({
-      id: product.id,
-      title: product.title,
-      thumbnail: product.thumbnail,
-      image: product.images[0],
-      price: product.price,
-      stock: product.stock,
-      quantity: product.quantity,
-      rating: product.rating,
-      tags: product.tags,
-      availabilityStatus: product.availabilityStatus,
-      brand: product.brand,
-      category: product.category,
-      description: product.description,
-      dimensions: product.dimensions,
-      discountPercentage: product.discountPercentage,
-      images: product.images,
-      meta: product.meta,
-      minimumOrderQuantity: product.minimumOrderQuantity,
-      returnPolicy: product.returnPolicy,
-      reviews: product.reviews,
-      shippingInformation: product.shippingInformation,
-      sku: product.sku,
-      warrantyInformation: product.warrantyInformation,
-      weight: product.weight,
-    }));
-
-    // Combine shirt and shoe data
-    this.products = [...this.products, ...shoes];
-
-    this.loading.set(false); // Set loading to false after data is loaded
+    this.loading = false;
   }
 }
+
+// async ngOnInit() {
+//   this.loading.set(true); // Set loading to true before API call
+
+//   // Fetch categories data
+//   const response = await fetch('https://dummyjson.com/products/categories');
+//   const data = await response.json();
+//   console.log('data', data);
+
+//   const categories = data.map((category: any) => ({
+//     slug: category.slug,
+//     name: category.name,
+//     url: category.url,
+//   }));
+
+//   this.categories.set(categories);
+
+//   // Fetch men shoe data
+//   const shoeRes = await fetch(
+//     'https://dummyjson.com/products/category/mens-shoes'
+//   );
+
+//   const shoeData = await shoeRes.json();
+//   const shoes = shoeData.products.map((product: any) => ({
+//     id: product.id,
+//     title: product.title,
+//     thumbnail: product.thumbnail,
+//     image: product.images[0],
+//     price: product.price,
+//     stock: product.stock,
+//     quantity: product.quantity,
+//     rating: product.rating,
+//     tags: product.tags,
+//     availabilityStatus: product.availabilityStatus,
+//     brand: product.brand,
+//     category: product.category,
+//     description: product.description,
+//     dimensions: product.dimensions,
+//     discountPercentage: product.discountPercentage,
+//     images: product.images,
+//     meta: product.meta,
+//     minimumOrderQuantity: product.minimumOrderQuantity,
+//     returnPolicy: product.returnPolicy,
+//     reviews: product.reviews,
+//     shippingInformation: product.shippingInformation,
+//     sku: product.sku,
+//     warrantyInformation: product.warrantyInformation,
+//     weight: product.weight,
+//   }));
+
+//   // Combine shirt and shoe data
+//   this.products = [...this.products, ...shoes];
+
+//   this.loading.set(false); // Set loading to false after data is loaded
+// }
