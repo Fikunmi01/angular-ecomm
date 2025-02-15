@@ -8,6 +8,11 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { ProductItemComponent } from './pages/product-item/product-item.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { CategoryItemComponent } from './pages/category-item/category-item.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SignupComponent } from './components/login/signup/signup.component';
+import { VerifyComponent } from './components/login/verify/verify.component';
+import { LoginComponent } from './components/login/login.component';
+import { SellerVerificationComponent } from './components/seller-verification/seller-verification.component';
 
 export const routes: Routes = [
   // {
@@ -61,6 +66,31 @@ export const routes: Routes = [
   {
     path: 'category/:name',
     component: CategoryItemComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'signup/verify',
+    component: VerifyComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'seller-verification',
+    component: SellerVerificationComponent,
     pathMatch: 'full',
   },
 ];

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  // apiBaseUrl: "https://devapps.lotusbank.com/",
+  apiBaseUrl: "https://ecommerce-theta.onrender.com/",
   productUrl: 'https://dummyjson.com/products/category/',
   categoryUrl: 'https://dummyjson.com/products/categories',
   // apiBaseUrlTwo : "https://bk.lotus.appstore.com.ng/"

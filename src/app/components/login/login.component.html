@@ -1,0 +1,256 @@
+<div class="flex h-screen text-[#1d1d1d] w-fit">
+  <img src="assets/dollhouseBg.png" class="w-screen" alt="" />
+  <div
+    class="py-4 top-10 mx-10 px-10 w-[30%] absolute bg-white rounded-2xl bg-opacity-80 z-50"
+  >
+    <h1
+      class="font-serif text-4xl text-[#024E82] cursor-pointer"
+      routerLink="/"
+    >
+      NorthStar
+    </h1>
+
+    <div class="my-2">
+      <h1 class="text-2xl font-bal font-semibold">Login Account</h1>
+      <div>
+        <p
+          class="border flex text-sm font-serif font-bold items-center justify-center w-80 mt-4 px-10 py-1 mx-auto"
+        >
+          Sign in with Google
+        </p>
+        <div class="flex items-center w-80 mx-auto">
+          <div class="flex-grow border-t"></div>
+          <span class="mx-4 text-gray-500">OR</span>
+          <div class="flex-grow border-t"></div>
+        </div>
+
+        <div>
+          <form action="" [formGroup]="loginForm">
+            <div class="flex flex-col font-bal">
+              <label for="first name">Email*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="text"
+                placeholder="Enter your email"
+                formControlName="email"
+                name=""
+                id=""
+              />
+            </div>
+
+            <div class="flex flex-col font-bal">
+              <label for="first name">Password*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="password"
+                placeholder="Create a Password"
+                name=""
+                formControlName="password"
+                id=""
+              />
+            </div>
+
+            <div class="grid grid-cols-2">
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.number,
+                    'text-[#F44336]': !passwordRequirements.number
+                  }"
+                >
+                  Minimum of one number
+                </span>
+              </p>
+
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.specialChar,
+                    'text-[#F44336]': !passwordRequirements.specialChar
+                  }"
+                >
+                  Minimum of one special character
+                </span>
+              </p>
+
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.uppercase,
+                    'text-[#F44336]': !passwordRequirements.uppercase
+                  }"
+                >
+                  Minimum of one uppercase letter
+                </span>
+              </p>
+
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.length,
+                    'text-[#F44336]': !passwordRequirements.length
+                  }"
+                >
+                  Must be greater than 7 characters
+                </span>
+              </p>
+            </div>
+
+            <button
+              (click)="login()"
+              class="bg-black text-white w-full px-2 py-2 rounded-lg font-bal text-xl font-semibold mx-auto my-4 flex justify-center"
+            >
+              Login
+            </button>
+            <div class="flex justify-between">
+              <p class="font-bal text-sm break-words w-1/2">
+                Don't have an account ?
+                <a
+                  href=""
+                  class="underline text-[#024E82] text-opacity-70 hover:text-opacity-100 cursor-pointer"
+                  routerLink="/signup"
+                  >Sign up</a
+                >
+              </p>
+
+              <p
+                (click)="toggleResetMenu()"
+                class="font-bal text-sm text-[#024E82] cursor-pointer underline text-opacity-70 hover:text-opacity-100"
+              >
+                Forgot password
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="resetMenu"
+      class="fixed inset-0 flex my-auto flex-col bg-white w-2/3 rounded-2xl h-fit mx-auto z-50"
+    >
+      <div class="flex justify-between py-4 px-4">
+        <span></span>
+        <img
+          (click)="toggleResetMenu()"
+          class="border cursor-pointer border-[#024E82] rounded-md px-2 py-1"
+          src="assets/closeicon.svg"
+          alt=""
+        />
+      </div>
+      <div
+        class="w-16 p-4 bg-[#024E82] h-fit flex mx-auto mt-2 mb-3 rounded-full text-center items-center justify-center"
+      >
+        <img src="assets/keyIcon.svg" alt="" />
+      </div>
+      <h1 class="font-serif text-center text-3xl font-bold">Forgot password</h1>
+
+      <p class="text-base font-bal text-center">
+        No worries, we'll send you reset instructions.
+      </p>
+
+      <form [formGroup]="resetForm">
+        <div class="w-96 my-4 mx-auto flex flex-col">
+          <label for="" class="text-base font-serif">Email</label>
+          <input
+            type="text"
+            formControlName="email"
+            class="rounded-lg border px-2 outline-none py-1 font-bal"
+            placeholder="Enter your email"
+            name=""
+            id=""
+          />
+          <button
+            class="bg-[#024E82] px-2 py-1 text-white rounded-md my-2 font-bal text-xl font-semibold"
+            (click)="resetPassword()"
+          >
+            Reset password
+          </button>
+          <button class="mx-auto" (click)="toggleResetMenu()">
+            <span class="flex items-center gap-x-2 mx-auto">
+              <div class="border px-3.5 py-3 rounded-full w-fit">
+                <img src="assets/arrow.png" class="rotate-180" alt="" />
+              </div>
+              <p class="font-bal text-base font-semibold">Back to login</p>
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- <div > -->
+  <!-- <p>verify works!</p> -->
+  <form [formGroup]="verifyPwdForm">
+    <div
+      *ngIf="resetPwd"
+      class="fixed inset-0 flex py-5 my-auto flex-col text-center bg-white w-2/3 rounded-2xl h-fit mx-auto z-50"
+    >
+      <span class="w-72 mx-auto">
+        <img src="/assets/otpVerification.png" alt="" />
+      </span>
+
+      <p class="font-serif text-3xl font-bold mt-2">OTP Verification</p>
+
+      <p class="font-bal text-xl text-slate-600">
+        We have sent an OTP on your given email
+      </p>
+      <div class="flex flex-col w-96 mx-auto flex-start">
+        <label for="" class="text-left font-bal text-xl text-slate-600"
+          >New password</label
+        >
+        <input
+          formControlName="password"
+          type="password"
+          class="border outline-none px-2 py-1 rounded-md font-bal"
+          placeholder="Enter your new password"
+          name=""
+          id=""
+        />
+      </div>
+
+      <div class="inline-flex mx-auto my-4 gap-x-4">
+        <input
+          class="border text-center text-2xl font-bal border-[#024E82] px-4 py-4 rounded-lg w-16"
+          type="text"
+          (input)="onOtpChange($event, 0)"
+        />
+        <input
+          class="border text-center text-2xl font-bal border-[#024E82] px-4 py-4 rounded-lg w-16"
+          type="text"
+          (input)="onOtpChange($event, 1)"
+        />
+        <input
+          class="border text-center text-2xl font-bal border-[#024E82] px-4 py-4 rounded-lg w-16"
+          type="text"
+          (input)="onOtpChange($event, 2)"
+        />
+        <input
+          class="border text-center text-2xl font-bal border-[#024E82] px-4 py-4 rounded-lg w-16"
+          type="text"
+          (input)="onOtpChange($event, 3)"
+        />
+        <input
+          class="border text-center text-2xl font-bal border-[#024E82] px-4 py-4 rounded-lg w-16"
+          type="text"
+          (input)="onOtpChange($event, 4)"
+        />
+        <input
+          class="border text-center text-2xl font-bal border-[#024E82] px-4 py-4 rounded-lg w-16"
+          type="text"
+          (input)="onOtpChange($event, 5)"
+        />
+        
+      </div>
+
+      <button
+        class="mx-auto bg-[#024E82] text-white w-96 border px-2 py-2 font-bal rounded-lg text-xl font-bold mb-3 shadow-md hover:bg-opacity-90"
+        (click)="verifyPwdReset()"
+      >
+        Reset Password
+      </button>
+    </div>
+  </form>
+
+  <!-- </div> -->
+</div>

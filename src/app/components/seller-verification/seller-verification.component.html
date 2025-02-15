@@ -1,0 +1,201 @@
+<div class="min-h-screen bg-gray-50 py-12 px-4 font-serif">
+    <div class="max-w-3xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Become a Seller</h1>
+        <p class="mt-2 text-gray-600">Complete verification to start selling on our platform</p>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="flex justify-between mb-8">
+        <ng-container *ngFor="let step of steps; let i = index">
+          <div class="flex items-center">
+            <div [ngClass]="[
+              'w-8 h-8 rounded-full flex items-center justify-center',
+              currentStep >= i + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+            ]">
+              <span *ngIf="currentStep <= i + 1">{{i + 1}}</span>
+              <i *ngIf="currentStep > i + 1" class="fas fa-check text-sm"></i>
+            </div>
+            <div *ngIf="i < steps.length - 1" [ngClass]="[
+              'h-1 w-24',
+              currentStep > i + 1 ? 'bg-blue-600' : 'bg-gray-200'
+            ]"></div>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Step 1: Personal Information -->
+      <div *ngIf="currentStep === 1" class="bg-white rounded-lg shadow-md p-6">
+        <form [formGroup]="personalInfoForm" class="space-y-6">
+          <div class="space-y-2">
+            <h2 class="text-xl font-semibold text-gray-900">Personal Information</h2>
+            <p class="text-gray-600">Please provide your basic details for verification</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="text-sm font-medium text-gray-700">First Name</label>
+              <input 
+                type="text" 
+                formControlName="firstName"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+            </div>
+            <div class="space-y-1">
+              <label class="text-sm font-medium text-gray-700">Last Name</label>
+              <input 
+                type="text" 
+                formControlName="lastName"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+            </div>
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-sm font-medium text-gray-700">Date of Birth</label>
+            <input 
+              type="date" 
+              formControlName="dateOfBirth"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-sm font-medium text-gray-700">Government ID Number</label>
+            <input 
+              type="text" 
+              formControlName="idNumber"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+          </div>
+
+          <button 
+            (click)="nextStep()"
+            [disabled]="!personalInfoForm.valid"
+            class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Continue
+          </button>
+        </form>
+      </div>
+
+      <!-- Step 2: Document Upload -->
+      <div *ngIf="currentStep === 2" class="bg-white rounded-lg shadow-md p-6">
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <h2 class="text-xl font-semibold text-gray-900">Identity Document</h2>
+            <p class="text-gray-600">Upload a valid government-issued ID</p>
+          </div>
+
+          <div 
+            (click)="fileInput.click()" 
+            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-gray-400"
+          >
+            <input 
+              #fileInput 
+              type="file" 
+              (change)="onFileSelected($event)" 
+              class="hidden" 
+              accept="image/*"
+            >
+            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400"></i>
+            <p class="mt-2 text-sm text-gray-600">Click to upload or drag and drop</p>
+            <p class="text-xs text-gray-500">Accepted formats: JPEG, PNG. Max size: 5MB</p>
+          </div>
+
+          <div *ngIf="selectedFile" class="flex items-center justify-between p-4 bg-gray-50 rounded-md">
+            <div class="flex items-center space-x-2">
+              <i class="fas fa-file text-gray-400"></i>
+              <span class="text-sm text-gray-700">{{selectedFile.name}}</span>
+            </div>
+            <button 
+              (click)="removeFile()" 
+              class="text-gray-400 hover:text-gray-500"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+
+          <div class="flex justify-between">
+            <button 
+              (click)="previousStep()"
+              class="text-gray-600 hover:text-gray-700 font-medium"
+            >
+              Back
+            </button>
+            <button 
+              (click)="nextStep()"
+              [disabled]="!selectedFile"
+              class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Facial Verification -->
+      <div *ngIf="currentStep === 3" class="bg-white rounded-lg shadow-md p-6">
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <h2 class="text-xl font-semibold text-gray-900">Facial Verification</h2>
+            <p class="text-gray-600">Take a selfie for identity verification</p>
+          </div>
+
+          <div class="space-y-4">
+            <div [ngClass]="[
+              'aspect-video rounded-lg flex flex-col items-center justify-center',
+              photoTaken ? 'bg-green-50' : 'bg-gray-50'
+            ]">
+              <video #videoElement class="w-full h-full object-cover rounded-lg" *ngIf="!photoTaken"></video>
+              <i [ngClass]="[
+                'text-4xl',
+                photoTaken ? 'fas fa-check-circle text-green-500' : 'fas fa-camera text-gray-400'
+              ]"></i>
+              <p class="mt-2 text-sm" [ngClass]="[
+                photoTaken ? 'text-green-600' : 'text-gray-500'
+              ]">
+                {{photoTaken ? 'Photo captured successfully' : 'Position your face within the frame'}}
+              </p>
+            </div>
+
+            <button 
+              (click)="togglePhoto()"
+              class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              {{photoTaken ? 'Retake Photo' : 'Take Photo'}}
+            </button>
+          </div>
+
+          <div class="bg-blue-50 rounded-md p-4 flex items-start space-x-2">
+            <i class="fas fa-info-circle text-blue-400 mt-0.5"></i>
+            <p class="text-sm text-blue-700">
+              Ensure good lighting and a clear background
+            </p>
+          </div>
+
+          <div class="flex justify-between">
+            <button 
+              (click)="previousStep()"
+              class="text-gray-600 hover:text-gray-700 font-medium"
+            >
+              Back
+            </button>
+            <button 
+              (click)="completeVerification()"
+              [disabled]="!photoTaken"
+              class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Complete Verification
+            </button>
+          </div>
+
+          <p class="text-center text-sm text-gray-500">
+            Your information is encrypted and secure. 
+            <a href="#" class="text-blue-600 hover:text-blue-700">Learn more about our verification process</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>

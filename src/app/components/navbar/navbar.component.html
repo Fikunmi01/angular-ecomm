@@ -15,7 +15,16 @@
   </div>
 
   <div class="flex items-center gap-x-4">
-    <img src="/assets/user 1.png" alt="" />
+    <div *ngIf="isLoggedIn">
+      <p>Welcome, {{ firstname }}</p>
+    </div>
+    <img
+    *ngIf="isLoggedIn"
+      src="/assets/user 1.png"
+      routerLink="/profile"
+      class="cursor-pointer"
+      alt=""
+    />
     <span class="flex relative items-center">
       <div class="absolute bottom-4 left-2">
         <img class="" src="assets/Ellipse 1.png" alt="" />
@@ -34,6 +43,11 @@
       />
     </span>
 
-    <img src="/assets/menu 1.png" alt="" />
+    <div *ngIf="!isLoggedIn">
+      <p class="border px-4 py-1 rounded-lg cursor-pointer" routerLink="/login">
+        Login
+      </p>
+    </div>
+    <!-- <img  src="/assets/menu 1.png" alt="" /> -->
   </div>
 </div>

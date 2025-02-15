@@ -1,0 +1,338 @@
+<!-- <div class="flex h-screen text-[#1d1d1d] w-fit">
+  <img src="assets/dollhouseBg.png" class="w-screen" alt="" />
+  <div
+    class="py-5 top-10 mx-10 px-10 w-[30%] absolute bg-white rounded-2xl bg-opacity-80 z-50"
+  >
+    <h1 class="font-serif text-4xl text-[#024E82] cursor-pointer" routerLink="/">
+      NorthStar
+    </h1>
+
+    <div class="my-2">
+      <h1 class="text-2xl font-bal font-semibold">Create Account</h1>
+      <div>
+        <p
+          class="border flex text-sm font-serif font-bold items-center justify-center w-80 mt-4 px-10 py-1 mx-auto"
+        >
+          Sign up with Google
+        </p>
+        <div class="flex items-center w-80 mx-auto ">
+          <div class="flex-grow border-t"></div>
+          <span class="mx-4 text-gray-500">OR</span>
+          <div class="flex-grow border-t"></div>
+        </div>
+
+        <div>
+          <form action="" [formGroup]="signUpForm">
+            <div class="flex flex-col font-bal ">
+              <label for="first name">First name*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="text"
+                placeholder="Enter your first name"
+                formControlName="firstname"
+                name=""
+                id=""
+              />
+            </div>
+
+            <div class="flex flex-col font-bal ">
+              <label for="last name">Last name*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="text"
+                placeholder="Enter your first name"
+                formControlName="lastname"
+                name=""
+                id=""
+              />
+            </div>
+
+            <div class="flex flex-col font-bal ">
+              <label for="last name">Country*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="text"
+                placeholder="Enter your country"
+                formControlName="country"
+                name=""
+                id=""
+              />
+            </div>
+
+            <div class="flex flex-col font-bal ">
+              <label for="first name">Email*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="text"
+                placeholder="Enter your email"
+                formControlName="email"
+                name=""
+                id=""
+              />
+            </div>
+
+            <div class="flex flex-col font-bal ">
+              <label for="first name">Password*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="password"
+                placeholder="Create a Password"
+                name=""
+                formControlName="password"
+                id=""
+              />
+            </div>
+
+            <div class="grid grid-cols-2">
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.number,
+                    'text-[#F44336]': !passwordRequirements.number
+                  }"
+                >
+                  Minimum of one number
+                </span>
+              </p>
+
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.specialChar,
+                    'text-[#F44336]': !passwordRequirements.specialChar
+                  }"
+                >
+                  Minimum of one special character
+                </span>
+              </p>
+
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.uppercase,
+                    'text-[#F44336]': !passwordRequirements.uppercase
+                  }"
+                >
+                  Minimum of one uppercase letter
+                </span>
+              </p>
+
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.length,
+                    'text-[#F44336]': !passwordRequirements.length
+                  }"
+                >
+                  Must be greater than 7 characters
+                </span>
+              </p>
+            </div>
+
+            <button
+              (click)="signUp()"
+              class="bg-black text-white w-80 px-2 py-2 rounded-lg font-bal text-xl font-semibold mx-auto my-4 flex justify-center"
+            >
+              Create Account
+            </button>
+
+            <p>
+              Already have an account ? <a href="" class="underline" routerLink="/login">Log in</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full relative">
+     <img
+      class="w-full h-screen object-cover"
+      src="assets/dollhouseBg.png"
+      alt=""
+    /> -->
+<!-- <div class="absolute bottom-10 px-10">
+      <h1 class="text-4xl break-words w-2/3 font-serif text-white font-bold">
+        Start turning your ideas into reality.
+      </h1>
+      <p class="font-bal text-xl font-semibold text-white">
+        Create a free account and get access to all features.
+      </p>
+    </div>
+  </div>
+</div> -->
+
+<div class="flex h-screen text-[#1d1d1d] w-fit">
+  <img src="assets/dollhouseBg.png" class="w-screen" alt="" />
+  <div
+    class="py-1 top-5 mx-10 px-10 w-[30%] absolute bg-white rounded-2xl bg-opacity-80 z-50"
+  >
+    <h1
+      class="font-serif text-4xl text-[#024E82] cursor-pointer"
+      routerLink="/"
+    >
+      NorthStar
+    </h1>
+
+    <div class="my-1">
+      <h1 class="text-2xl font-bal font-semibold">Create Account</h1>
+      <div>
+        <p
+          class="border flex text-sm font-serif font-bold items-center justify-center w-80 mt-4 px-10 py-1 mx-auto"
+        >
+          Sign up with Google
+        </p>
+        <div class="flex items-center w-80 mx-auto">
+          <div class="flex-grow border-t"></div>
+          <span class="mx-4 text-gray-500">OR</span>
+          <div class="flex-grow border-t"></div>
+        </div>
+        <div>
+          <form action="" [formGroup]="signUpForm">
+            <div class="flex flex-col font-bal">
+              <label for="first name">First name*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="text"
+                placeholder="Enter your first name"
+                formControlName="firstname"
+                name=""
+                id=""
+              />
+            </div>
+
+            <div class="flex flex-col font-bal">
+              <label for="last name">Last name*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="text"
+                placeholder="Enter your first name"
+                formControlName="lastname"
+                name=""
+                id=""
+              />
+            </div>
+
+            <div class="flex flex-col font-bal">
+              <label for="last name">Country*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="text"
+                placeholder="Enter your country"
+                formControlName="country"
+                name=""
+                id=""
+              />
+            </div>
+
+            <div class="flex flex-col font-bal">
+              <label for="first name">Email*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="text"
+                placeholder="Enter your email"
+                formControlName="email"
+                name=""
+                id=""
+              />
+            </div>
+
+            <div class="flex flex-col font-bal">
+              <label for="first name">Password*</label>
+              <input
+                class="border outline-none px-2 py-1 rounded-md"
+                type="password"
+                placeholder="Create a Password"
+                name=""
+                formControlName="password"
+                id=""
+              />
+            </div>
+
+            <div class="grid grid-cols-2 ">
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.number,
+                    'text-[#F44336]': !passwordRequirements.number
+                  }"
+                >
+                  Minimum of one number
+                </span>
+              </p>
+
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.specialChar,
+                    'text-[#F44336]': !passwordRequirements.specialChar
+                  }"
+                >
+                  Minimum of one special character
+                </span>
+              </p>
+
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.uppercase,
+                    'text-[#F44336]': !passwordRequirements.uppercase
+                  }"
+                >
+                  Minimum of one uppercase letter
+                </span>
+              </p>
+
+              <p class="text-xs font-bal">
+                <span
+                  [ngClass]="{
+                    'text-[#0DA600]': passwordRequirements.length,
+                    'text-[#F44336]': !passwordRequirements.length
+                  }"
+                >
+                  Must be greater than 7 characters
+                </span>
+              </p>
+            </div>
+
+            <button
+              (click)="signUp()"
+              class="bg-black text-white w-80 px-2 py-1 rounded-lg font-bal text-xl font-semibold mx-auto my-2 flex justify-center"
+            >
+              Create Account
+            </button>
+
+            <p class="text-sm">
+              Already have an account ?
+              <a href="" class="underline" routerLink="/login">Log in</a>
+            </p>
+
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="w-full relative">
+    <img
+      class="w-full h-screen object-cover"
+      src="assets/dollhouseBg.png"
+      alt=""
+    />
+    <div class="absolute bottom-10 px-10">
+      <h1 class="text-4xl break-words w-2/3 font-serif text-white font-bold">
+        Start turning your ideas into reality.
+      </h1>
+      <p class="font-bal text-xl font-semibold text-white">
+        Create a free account and get access to all features.
+      </p>
+    </div>
+  </div>
+</div>
+
+ <div
+  *ngIf="resetMenu"
+  class="fixed inset-0 flex my-auto bg-white w-96 rounded-2xl bg-opacity-80 h-96 mx-auto z-50"
+>
+  Forgot passwor
+</div> -->
+</div>
