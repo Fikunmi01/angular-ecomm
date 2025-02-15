@@ -148,7 +148,6 @@
               'aspect-video rounded-lg flex flex-col items-center justify-center',
               photoTaken ? 'bg-green-50' : 'bg-gray-50'
             ]">
-              <video #videoElement class="w-full h-full object-cover rounded-lg" *ngIf="!photoTaken"></video>
               <i [ngClass]="[
                 'text-4xl',
                 photoTaken ? 'fas fa-check-circle text-green-500' : 'fas fa-camera text-gray-400'
