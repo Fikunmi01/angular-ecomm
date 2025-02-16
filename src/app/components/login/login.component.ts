@@ -78,7 +78,7 @@ export class LoginComponent {
     });
 
     this.verifyPwdForm = this.fb.group({
-      reset_password_token: [''],
+      token: [''],
       password: [
         '',
         [
@@ -111,21 +111,21 @@ export class LoginComponent {
 
   verifyPwdReset() {
     const token = this.otpValues.join('');
-    this.verifyPwdForm.patchValue({ reset_password_token: token }); // Set the token in the form
+    this.verifyPwdForm.patchValue({ token: token }); // Set the token in the form
     if (this.verifyPwdForm.valid) {
       const verifyPayload = {
         password: this.verifyPwdForm.get('password')?.value,
 
-        reset_password_token: this.verifyPwdForm.get('reset_password_token')?.value,
+        token: this.verifyPwdForm.get('token')?.value,
       };
       this.setupService.verifypwdReset(verifyPayload).subscribe(
         (res: any) => {
-          if (res.status === 200) {
-            console.log('Account Verified Successfully');
-            this.toastr.success('Account verified successfully');
+          if (res === true) {
+            // console.log('Password Reset Successfully');
+            this.toastr.success('Password reset successfully');
             this.resetPwd = false; // Close the reset password menu
           } else {
-            console.error('Password verification failed:', res.message);
+            // console.error('Password verification failed:', res.message);
             this.toastr.error(res.message || 'Password verification failed');
           }
         },
