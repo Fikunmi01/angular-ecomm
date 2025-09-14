@@ -1,6 +1,6 @@
 <div *ngIf="product">
   <app-navbar />
-  <div class="p-10 relative flex gap-10">
+  <div class="p-4 lg:p-10 relative flex lg:flex-row flex-col-reverse gap-10">
     <div>
       <div class="flex items-center relative">
         <img src="assets/Ellipse 2.png" class="w-[55px]" alt="" />
@@ -10,11 +10,9 @@
           -{{ product.discountPercentage }}%
         </p>
       </div>
-      <!-- <img [src]="product.thumbnail" alt="" /> -->
-      <!-- class="w-[2048px] h-[2048px]" -->
 
       <div class=" " *ngIf="product.images && product.images.length">
-        <div class="w-72 h-72 flex justify-center items-center">
+        <div class="lg:w-72 lg:h-72 flex justify-center items-center">
           <video
             src="assets/video/Loading.mp4"
             class="w-48 h-fit loading-video"
@@ -30,16 +28,14 @@
           />
         </div>
 
-        <div class="flex top-1/2 w-72 absolute justify-between">
-          <!-- [style.cursor]="isLoading ? 'progress' : 'pointer'" -->
-
+        <div class="flex gap-2 lg:gap-0 lg:top-1/2 lg:w-72 absolute justify-between">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             id="prev"
             (click)="prevImage()"
             [style.fill]="currentImageIndex > 0 ? '#024E82' : '#555'"
-            class="w-6 cursor-pointer"
+            class="w-10 lg:w-6 cursor-pointer"
           >
             <g>
               <path
@@ -50,7 +46,6 @@
               ></path>
             </g>
           </svg>
-          <!-- [style.cursor]="isLoading ? 'progress' : 'pointer'" -->
 
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +59,7 @@
                 ? '#024E82'
                 : '#555'
             "
-            class="w-6 cursor-pointer"
+            class="w-10 lg:w-6  cursor-pointer"
           >
             <g>
               <path
@@ -135,24 +130,30 @@
       <div class="font-serif text-base text-[#555]">
         <p>{{ product.returnPolicy }}</p>
       </div>
+      
+      <!-- Size Selection Section -->
       <div class="my-4">
         <select
-          name=""
-          id=""
+          name="size"
+          id="size"
           class="border p-2 cursor-pointer bg-[#fbfbfb] border-[#ebebeb] text-[#1d1d1d] outline-none font-serif text-base"
+          (change)="onSizeChange($event)"
+          [value]="selectedSize"
         >
-          <option value="Select Size">Select size</option>
+          <option value="" disabled>{{ selectedSize ? 'Size: ' + selectedSize : 'Select size' }}</option>
           <option value="S">Small (S)</option>
           <option value="M">Medium (M)</option>
           <option value="L">Large (L)</option>
           <option value="XL">Extra Large (XL)</option>
         </select>
       </div>
+
       <div class="mb-4">
         <button class="font-serif bg-[#024E82] text-white px-3 py-2 text-sm">
           ADD TO CART
         </button>
       </div>
+      
       <div class="font-serif text-sm">
         <p class="text-[#555]">
           <span class="text-[#1d1d1d]"> Category: </span> {{ product.category }}
@@ -163,13 +164,12 @@
         </p>
 
         <p class="text-[#555]">
-          <!-- <span class="text-[#1d1d1d]"> </span> -->
           {{ product.returnPolicy }}
         </p>
       </div>
     </div>
   </div>
-  <div class="px-10">
+  <div class="px-6 lg:px-10">
     <div class="flex">
       <p
         (click)="showDescription()"
@@ -240,9 +240,6 @@
             <p></p>
             <p>{{ review.date.slice(0, 10) }}</p>
           </span>
-          <!-- <p>{{ review.rating }}</p> -->
-
-          <!-- <p>{{ review.reviewerEmail }}</p> -->
         </div>
       </div>
     </div>

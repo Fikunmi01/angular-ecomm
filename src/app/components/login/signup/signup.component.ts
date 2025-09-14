@@ -33,6 +33,7 @@ export class SignupComponent {
     uppercase: false,
     length: false,
   };
+  showPasswordRequirements: boolean = false; // Add this property
 
   userList: any[] = [];
 
@@ -66,23 +67,48 @@ export class SignupComponent {
     });
   }
 
+  // Add methods to handle password field focus
+  onPasswordFocus() {
+    this.showPasswordRequirements = true;
+  }
+
+  onPasswordBlur() {
+    this.showPasswordRequirements = false;
+  }
+
   signUp() {
+    console.log('Signup button clicked');
+    console.log('Form valid:', this.signUpForm.valid);
+    console.log('Form values:', this.signUpForm.value);
+    console.log('Form errors:', this.signUpForm.errors);
+    
     if (this.signUpForm.valid) {
+      console.log('Form is valid, proceeding with signup...');
       this.setupService.signUp(this.signUpForm.value).subscribe(
         (res: any) => {
           console.log(res, 'sign up successful');
           if (res.status === 'successful') {
             this.setupService.setUserList([res.user]);
             this.setupService.setCurrentUser(res.user);
+            this.toastr.success('Account created successfully!');
             this.router.navigate(['/login/verify']);
           }
         },
         (error) => {
           console.error('Sign up error:', error);
+          this.toastr.error('Sign up failed. Please try again.');
         }
       );
     } else {
       console.error('Form is invalid');
+      console.log('Individual field errors:');
+      Object.keys(this.signUpForm.controls).forEach(key => {
+        const control = this.signUpForm.get(key);
+        if (control && control.errors) {
+          console.log(`${key}:`, control.errors);
+        }
+      });
+      this.toastr.error('Please fill in all required fields correctly');
     }
   }
 

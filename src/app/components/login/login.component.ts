@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -28,7 +28,7 @@ import { Token } from '@angular/compiler';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   resetMenu: boolean = false;
   resetPwd: boolean = false;
@@ -42,6 +42,7 @@ export class LoginComponent {
   };
   otpValues: string[] = ['', '', '', '', '', ''];
   userProfile: any[] = [];
+  showPasswordRequirements: boolean = false; // Add this property
 
   constructor(
     private fb: FormBuilder,
@@ -99,6 +100,15 @@ export class LoginComponent {
 
   showResetPwdMenu() {
     this.resetPwd = true;
+  }
+
+  // Add methods to handle password field focus
+  onPasswordFocus() {
+    this.showPasswordRequirements = true;
+  }
+
+  onPasswordBlur() {
+    this.showPasswordRequirements = false;
   }
 
   onOtpChange(event: any, index: number) {
@@ -182,9 +192,7 @@ export class LoginComponent {
             localStorage.setItem('access_token', res.access_token);
             localStorage.setItem('refresh_token', res.refresh_token);
             this.toastr.success('Login successful');
-            setTimeout(() => {
-              this.router.navigate(['/']);
-            }, 4000); // 8 seconds delay
+            this.router.navigate(['/']); // Navigate to home page
           }
         },
         (error: HttpErrorResponse) => {

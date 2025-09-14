@@ -20,11 +20,12 @@ import { SearchServiceService } from '../../services/search-service.service';
   styleUrls: ['./product-item.component.scss'],
 })
 export class ProductItemComponent implements OnInit {
-  product!: Product; // Change from Product[] to Product
+  product!: Product;
   descTab: boolean = true;
   revTab: boolean = false;
   currentImageIndex: number = 0;
   isLoading: boolean = false;
+  selectedSize: string = ''; // Add this property to track selected size
 
   constructor(
     private route: ActivatedRoute,
@@ -60,6 +61,12 @@ export class ProductItemComponent implements OnInit {
   showReviews() {
     this.descTab = false;
     this.revTab = true;
+  }
+
+  // Add this method to handle size selection
+  onSizeChange(event: any) {
+    this.selectedSize = event.target.value;
+    console.log('Selected size:', this.selectedSize);
   }
 
   search(value: any) {
@@ -118,14 +125,14 @@ export class ProductItemComponent implements OnInit {
       const data = history.state.product;
       if (!data) {
         console.error('No product found with the given ID');
-        this.router.navigate(['/']); // Redirect to home or another appropriate page
+        this.router.navigate(['/']);
       } else {
-        console.log('Product:', data); // Log the product to verify all properties
-        this.product = data; // Assign the product data
+        console.log('Product:', data);
+        this.product = data;
       }
     } else {
       console.error('No product ID found in route');
-      this.router.navigate(['/']); // Redirect to home or another appropriate page
+      this.router.navigate(['/']);
     }
   }
 }

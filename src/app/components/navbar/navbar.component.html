@@ -1,12 +1,12 @@
 <div
-  class="flex justify-between items-center py-4 font-sans font-semibold px-10"
+  class="flex justify-between items-center py-4 font-sans font-semibold px-3 lg:px-10"
 >
   <div class="flex items-center gap-x-20">
     <h1 class="font-serif text-4xl text-[#1d1d1d] cursor-pointer" routerLink="">
       NorthStar
     </h1>
     <div
-      class="flex items-center text-[#024E82] text-xs font-bold font-ari gap-x-4"
+      class="hidden lg:flex items-center text-[#024E82] text-xs font-bold font-ari gap-x-4"
     >
       <a routerLink="">HOME</a>
       <a routerLink="/about-us" class="cursor-pointer">ABOUT</a>
@@ -19,7 +19,7 @@
       <p>Welcome, {{ firstname }}</p>
     </div>
     <img
-    *ngIf="isLoggedIn"
+      *ngIf="isLoggedIn"
       src="/assets/user 1.png"
       routerLink="/profile"
       class="cursor-pointer"
@@ -44,10 +44,74 @@
     </span>
 
     <div *ngIf="!isLoggedIn">
-      <p class="border px-4 py-1 rounded-lg cursor-pointer" routerLink="/login">
+      <p
+        class="border hidden lg:block px-4 py-1 rounded-lg cursor-pointer"
+        routerLink="/login"
+      >
         Login
       </p>
     </div>
-    <!-- <img  src="/assets/menu 1.png" alt="" /> -->
+
+    <div class="lg:hidden block">
+      <img
+        src="/assets/menu 1.png"
+        (click)="setMenuState()"
+        class="cursor-pointer"
+        *ngIf="!toggle"
+        alt=""
+      />
+    </div>
+    <!-- Mobile Menu Overlay -->
+    <div
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+      *ngIf="toggle"
+      (click)="closeMenuOnOverlay($event)"
+    >
+      <div
+        class="bg-white h-full  px-6"
+        (click)="$event.stopPropagation()"
+      >
+        <img
+          src="/assets/closeicon.svg"
+          *ngIf="toggle"
+          (click)="setMenuState()"
+          class="cursor-pointer pb-10 pt-10"
+          alt=""
+        />
+        <div class="flex flex-col space-y-6 text-lg font-semibold">
+          <a
+            routerLink=""
+            class="text-[#024E82] py-3 border-b border-gray-200"
+            (click)="setMenuState()"
+            >HOME</a
+          >
+          <a
+            routerLink="/about-us"
+            class="text-[#024E82] py-3 border-b border-gray-200"
+            (click)="setMenuState()"
+            >ABOUT</a
+          >
+          <a
+            routerLink="/contact-us"
+            class="text-[#024E82] py-3 border-b border-gray-200"
+            (click)="setMenuState()"
+            >CONTACT US</a
+          >
+
+          <a
+            routerLink="/login"
+            class="text-[#024E82] py-3 border-b border-gray-200"
+            (click)="setMenuState()"
+            >LOGIN</a
+          >
+          <a
+            routerLink="/signup"
+            class="text-[#024E82] py-3 border-b border-gray-200"
+            (click)="setMenuState()"
+            >GET STARTED</a
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </div>

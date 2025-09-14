@@ -1,7 +1,7 @@
 <div class="flex h-screen text-[#1d1d1d] w-fit">
   <img src="assets/dollhouseBg.png" class="w-screen" alt="" />
   <div
-    class="py-4 top-10 mx-10 px-10 w-[30%] absolute bg-white rounded-2xl bg-opacity-80 z-50"
+    class="py-4 top-10 mx-4 lg:mx-10 px-10 lg:w-[30%] absolute bg-white rounded-2xl bg-opacity-80 z-50"
   >
     <h1
       class="font-serif text-4xl text-[#024E82] cursor-pointer"
@@ -46,11 +46,13 @@
                 placeholder="Create a Password"
                 name=""
                 formControlName="password"
+                (focus)="onPasswordFocus()"
+                (blur)="onPasswordBlur()"
                 id=""
               />
             </div>
 
-            <div class="grid grid-cols-2">
+            <div class="grid grid-cols-1" *ngIf="showPasswordRequirements">
               <p class="text-xs font-bal">
                 <span
                   [ngClass]="{
