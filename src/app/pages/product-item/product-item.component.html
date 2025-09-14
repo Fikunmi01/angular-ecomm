@@ -13,14 +13,11 @@
 
       <div class=" " *ngIf="product.images && product.images.length">
         <div class="lg:w-72 lg:h-72 flex justify-center items-center">
-          <video
-            src="assets/video/Loading.mp4"
+          <img
+            src="assets/video/Loading.gif"
             class="w-48 h-fit loading-video"
-            autoplay
-            loop
-            muted
             style="display: none"
-          ></video>
+          />
           <img
             [src]="product.images[currentImageIndex]"
             class="product-image"
